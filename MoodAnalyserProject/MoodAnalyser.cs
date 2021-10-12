@@ -15,10 +15,17 @@ namespace MoodAnalyserProject
 
         public string Analyzer()
         {
-            if (this.message.Contains("sad"))
-                return "sad";
-            else
+            try
+            {
+                if (this.message.Contains("sad"))
+                    return "sad";
+                else
+                    return "happy";
+            }
+            catch(NullReferenceException)
+            {
                 return "happy";
+            }
         }
     }
 }
