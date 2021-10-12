@@ -20,7 +20,14 @@ namespace MoodAnalyserTest
             Assert.AreEqual("happy", result);
         }
         [Test]
-        public void GivenNull_ShouldReturn_SadMood()
+        public void GivenEmpty_Shouldthrow_CustomException()
+        {
+            MoodAnalyser moodtest = new MoodAnalyser(" ");
+            string result = moodtest.Analyzer();
+            Assert.AreEqual("happy", result);
+        }
+        [Test]
+        public void GivenNull_Shouldthrow_CustomException()
         {
             MoodAnalyser moodtest = new MoodAnalyser(null);
             string result = moodtest.Analyzer();
