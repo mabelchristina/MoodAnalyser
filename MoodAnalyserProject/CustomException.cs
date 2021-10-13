@@ -4,14 +4,14 @@ using System.Text;
 
 namespace MoodAnalyserProject
 {
-    class CustomException:Exception
+    public class CustomException:Exception
     {
         public enum ExceptionType
         {
-            NULL_MESSAGE,EMPTY_MESSAGE
+            NULL_MESSAGE,EMPTY_MESSAGE,NO_SUCH_CLASS,NO_SUCH_METHOD,NO_SUCH_FIELD, OBJECT_CREATION_ISSUE
         }
         private readonly ExceptionType type;
-        public CustomException(ExceptionType Type, String message) : base(message)
+        public CustomException(ExceptionType Type, string message) : base(message)
         {
             this.type = Type;
         }

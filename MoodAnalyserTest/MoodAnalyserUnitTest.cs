@@ -6,32 +6,39 @@ namespace MoodAnalyserTest
     public class Tests
     {
         [Test]
-        public void GivenSad_ShouldReturn_SadMood()
+        public void GivenMoodAnalyseClassName_ShouldReturnMoodAnalyseObject()
         {
-            MoodAnalyser moodtest = new MoodAnalyser("I am in sad Mood");
-            string result = moodtest.Analyzer();
-            Assert.AreEqual("sad", result);
+            object expected = new MoodAnalyser();
+            object obj = MoodAnalyserFactory.CreateMoodAnalyser("MoodAnalyserProject.MoodAnalyser", "MoodAnalyser");
+            expected.Equals(obj);
+
         }
         [Test]
-        public void GivenAny_ShouldReturn_SadMood()
+        public void GivenWrongClassName_ShouldThrowException()
         {
-            MoodAnalyser moodtest = new MoodAnalyser("I am in any Mood");
-            string result = moodtest.Analyzer();
-            Assert.AreEqual("happy", result);
+            string expected = "Class not found";
+            try
+            {
+                object obj = MoodAnalyserFactory.CreateMoodAnalyser("MoodAnalyserProject.MoodAnalyzer", "MoodAnalyzer");
+            }
+            catch (CustomException ex)
+            {
+                Assert.AreEqual(expected, ex.Message);
+            }
+
         }
         [Test]
-        public void GivenEmpty_Shouldthrow_CustomException()
+        public void GivenClassConstructerNotProper_ShouldThrowException()
         {
-            MoodAnalyser moodtest = new MoodAnalyser(" ");
-            string result = moodtest.Analyzer();
-            Assert.AreEqual("happy", result);
-        }
-        [Test]
-        public void GivenNull_Shouldthrow_CustomException()
-        {
-            MoodAnalyser moodtest = new MoodAnalyser(null);
-            string result = moodtest.Analyzer();
-            Assert.AreEqual("happy", result);
+            string expected = "Constructor not found";
+            try
+            {
+                object obj = MoodAnalyserFactory.CreateMoodAnalyser("MoodAnalyserProject.MoodAnalyze", "MoodAnalyzer");
+            }
+            catch (CustomException ex)
+            {
+                Assert.AreEqual(expected, ex.Message);
+            }
         }
     }
 }

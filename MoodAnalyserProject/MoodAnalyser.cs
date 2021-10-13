@@ -8,31 +8,31 @@ namespace MoodAnalyserProject
     {
         private string message;
 
+        public MoodAnalyser()
+        {
+            Console.WriteLine("this is default constructor");
+        }
         public MoodAnalyser(string message)
         {
             this.message = message;
         }
-
         public string Analyzer()
         {
             try
             {
-                if(this.message.Equals(string.Empty))
+                if (this.message.Equals(string.Empty))
                 {
                     throw new CustomException(CustomException.ExceptionType.EMPTY_MESSAGE, "Mood should not be empty");
                 }
-                if (this.message.Equals(null))
-                {
-                    throw new CustomException(CustomException.ExceptionType.NULL_MESSAGE, "Mood should not be null");
-                }
                 if (this.message.Contains("sad"))
+                {
                     return "sad";
-                else
+                }
                     return "happy";
             }
             catch(NullReferenceException)
             {
-                return "happy";
+                throw new CustomException(CustomException.ExceptionType.NULL_MESSAGE, "Mood should not be null");
             }
         }
     }
