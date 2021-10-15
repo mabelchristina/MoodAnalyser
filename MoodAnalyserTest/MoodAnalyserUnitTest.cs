@@ -81,5 +81,57 @@ namespace MoodAnalyserTest
             }
         }
         //End of UC5
+
+        //UC6
+        [Test]
+        public void Given_MoodAnalyser_Class_Name_Should_Return_MoodAnalyser_Object_Using_Parametrized_Constructor()
+        {
+            //Arrange
+            string className = "MoodAnalyzer.MoodAnalyser";
+            string constructor = "MoodAnalyser";
+            MoodAnalyser expectedObj = new MoodAnalyser("HAPPY");
+            //Act
+            object resultObj = MoodAnalyserFactory.ParameterizedConstructor(className, constructor, "HAPPY");
+            //Assert
+            expectedObj.Equals(resultObj);
+        }
+        //TestCase-6.2
+        [Test]
+        public void Given_Wrong_Class_Name_Should_Throw_MoodAnalysisException_For_Parameterized_Constructor()
+        {
+            try
+            {
+                //Arrange
+                string className = "WrongNameSpace.MoodAnalyser";
+                string constructorName = "MoodAnalyser";
+                MoodAnalyser expectedObj = new MoodAnalyser("HAPPY");
+                //Act
+                object resultObj = MoodAnalyserFactory.ParameterizedConstructor(className, constructorName, "HAPPY");
+            }
+            catch (CustomException e)
+            {
+                //Assert
+                Assert.AreEqual("Class Not Found", e.Message);
+            }
+        }
+        //TC 6.3:-Pass Wrong Constructor parameter, cactch the Exception and throw indicating No such method Error
+        [Test]
+        public void Given_Improper_Constructor_Name_Should_Throw_MoodAnalysisException_For_Parameterized_Constructor()
+        {
+            try
+            {
+                //Arrange
+                string className = "MoodAnalyzer.MoodAnalyser";
+                string constructorName = "WrongConstructorName";
+                MoodAnalyser expectedObj = new MoodAnalyser("HAPPY");
+                //Act
+                object resultObj = MoodAnalyserFactory.ParameterizedConstructor(className, constructorName, "HAPPY");
+            }
+            catch (CustomException e)
+            {
+                //Assert
+                Assert.AreEqual("Constructor is not Found", e.Message);
+            }
+        }
     }
 }
